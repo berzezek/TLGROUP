@@ -9,6 +9,7 @@ export interface IDepartments {
 export interface IEmployee {
   id: number;
   name: string;
+  job: string;
   date_of_issue: string;
   salary: number;
   department: string;

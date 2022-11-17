@@ -14,49 +14,62 @@ run the `setup.py` file, run the following command in your terminal.
 ```console
 pip install -r requirements.txt .
 ```
-change your base.settings.py like this:
+create base.locale_settings.py with:
 
 ```
-
-    INSTALLED_APPS = [
-        ...
-        'base',
-        'rest_framework',
-        'corsheaders',
-        'django_extensions',
-    ]
-    
+from pathlib import Path
+import sys
+from .settings import DATABASES_AVAILABLE
 
 
-    MIDDLEWARE = [
-        ...
-        'corsheaders.middleware.CorsMiddleware',
-        'django.middleware.common.CommonMiddleware',
-        ...
-    ]
+BASE_DIR = Path(__file__).resolve().parent.parent
 
+DEBUG = True
 
-    CORS_ORIGIN_ALLOW_ALL = True
-    
+ALLOWED_HOSTS = ['*']
 
-    DATABASES = {
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [BASE_DIR / 'frontend/dist/'],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+
+DATABASES = {}
+
+DATABASES_AVAILABLE = {
     'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR/'db.sqlite3',
+    },
+    'remote': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'cn73530_tlgroup',
         'USER': 'cn73530_tlgroup',
         'PASSWORD': 'Aa20102010',
-        'HOST': '188.225.40.227',
+        'HOST': 'localhost',
         'PORT': '3306',
-    }
+    },
+    'test': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR/'test.sqlite3',
+    },
 }
-    ...
+if 'test' in sys.argv:
+    DATABASES['default'] = DATABASES_AVAILABLE['test']
 
-    REST_FRAMEWORK = {
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-    'PAGE_SIZE': 100
-}
-    
-    ...
+else:
+    DATABASES['default'] = DATABASES_AVAILABLE['default']
+
     
         
 ```

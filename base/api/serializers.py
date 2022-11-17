@@ -35,6 +35,7 @@ class EmployeeSerializer(serializers.ModelSerializer):
         model = Employee
         fields = (
             'id',
+            'job',
             'name',
             'salary',
             'date_of_issue',
@@ -48,6 +49,7 @@ class EmployeePostSerializer(serializers.ModelSerializer):
         model = Employee
         fields = (
             'id',
+            'job',
             'name',
             'salary',
             'date_of_issue',
@@ -58,6 +60,9 @@ class EmployeePostSerializer(serializers.ModelSerializer):
                 'required': False
             },
             'salary': {
+                'required': False
+            },
+            'job': {
                 'required': False
             },
             'date_of_issue': {
