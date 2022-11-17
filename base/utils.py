@@ -1,5 +1,6 @@
 from .models import Department, Employee
 
+
 def create_tl_base(department_depth_level=5, max_division=3, employee_count=201):
     from random import randint
     from faker import Faker
@@ -19,4 +20,5 @@ def create_tl_base(department_depth_level=5, max_division=3, employee_count=201)
                     Department.objects.create(name=fake.bs(), head_office=i)
     for i in Department.objects.all():
         for _ in range(employee_count):
-            Employee.objects.create(name=fake.name(), salary=randint(5000, 50000), date_of_issue=fake.date(), department=i)
+            Employee.objects.create(name=fake.name(), job=fake.job(), salary=randint(5000, 50000),
+                                    date_of_issue=fake.date(), department=i)

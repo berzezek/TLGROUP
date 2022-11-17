@@ -7,12 +7,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['tlgroup.cn73530.tmweb.ru']
+ALLOWED_HOSTS = ['*']
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / '../dist/'],
+        'DIRS': [BASE_DIR / 'frontend/dist/'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -24,11 +24,31 @@ TEMPLATES = [
         },
     },
 ]
+
 DATABASES = {}
+
+DATABASES_AVAILABLE = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR/'db.sqlite3',
+    },
+    'remote': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'cn73530_tlgroup',
+        'USER': 'cn73530_tlgroup',
+        'PASSWORD': 'Aa20102010',
+        'HOST': 'localhost',
+        'PORT': '3306',
+    },
+    'test': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR/'test.sqlite3',
+    },
+}
 if 'test' in sys.argv:
     DATABASES['default'] = DATABASES_AVAILABLE['test']
 
 else:
-    DATABASES['default'] = DATABASES_AVAILABLE['remote']
+    DATABASES['default'] = DATABASES_AVAILABLE['default']
 
 

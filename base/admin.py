@@ -84,6 +84,7 @@ class EmployeeAdmin(admin.ModelAdmin):
 
     list_display = (
         'name',
+        'job',
         'salary',
         'date_of_issue',
         'department',

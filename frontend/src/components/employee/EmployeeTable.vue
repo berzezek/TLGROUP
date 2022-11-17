@@ -6,6 +6,7 @@
           <tr>
             <th scope="col">#</th>
             <th scope="col">ФИО</th>
+            <th scope="col">Должность</th>
             <th scope="col">Дата</th>
             <th scope="col">Зарплата</th>
           </tr>
@@ -14,6 +15,7 @@
           <tr v-for="(employee, index) in employees" :key="employee.id">
             <th scope="row">{{ index + 1 }}</th>
             <td>{{ employee.name }}</td>
+            <td>{{ employee.job }}</td>
             <td>{{ employee.date_of_issue }}</td>
             <td>{{ employee.salary }} руб.</td>
           </tr>
