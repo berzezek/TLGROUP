@@ -61,7 +61,7 @@ ROOT_URLCONF = 'backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR],
+        'DIRS': [BASE_DIR / 'frontend/dist/'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -93,7 +93,7 @@ DATABASES_AVAILABLE = {
         'NAME': 'cn73530_tlgroup',
         'USER': 'cn73530_tlgroup',
         'PASSWORD': 'Aa20102010',
-        'HOST': '188.225.40.227',
+        'HOST': '188.255.40.227',
         'PORT': '3306',
     },
     'test': {
