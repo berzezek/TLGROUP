@@ -1,22 +1,24 @@
-# TLGROUP TECHNICAL PREVIEW
+## TLGROUP TECHNICAL PREVIEW
 
-## Table of Contents
+---
 
-- [Setup](#setup)
-- [Usage](#usage)
+### To view the working version, you can visit [tlgroup.cn73530.tmweb.ru](http://tlgroup.cn73530.tmweb.ru)
 
-## Setup
+### BACKEND
 
-First, clone this repo to your local system. After you clone the repo, make sure
-to run the `setup.py` file, so you can install any dependencies you may need. To
-run the `setup.py` file, run the following command in your terminal.
+1. First, clone this repo to your local system. After you clone the repo, make sure
+   to run the `setup.py` file, so you can install any dependencies you may need. To
+   run the `setup.py` file, run the following command in your terminal.
 
 ```console
+python3 -m vevn venv
+source venv/bin/activate
 pip install -r requirements.txt .
 ```
-create base.locale_settings.py with:
 
-```
+create backend.locale_settings.py with:
+
+```python
 from pathlib import Path
 import sys
 from .settings import DATABASES_AVAILABLE
@@ -56,7 +58,7 @@ DATABASES_AVAILABLE = {
         'NAME': 'cn73530_tlgroup',
         'USER': 'cn73530_tlgroup',
         'PASSWORD': 'Aa20102010',
-        'HOST': 'localhost',
+        'HOST': '188.225.40.227',
         'PORT': '3306',
     },
     'test': {
@@ -76,46 +78,66 @@ else:
 
 2. Include the polls URLconf in your project urls.py like this::
 
+```python
 from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('base.urls')),
     path('api/v1/', include('base.api.urls')),
 ]
-
-
-3. Run ``python manage.py migrate`` 
-    (or ``python manage.py migrate`` on macOS or Linux) to create the department and employees models.
-
-
-4. Start the development server and visit http://127.0.0.1:8000/admin/
-   to create a department and employee (you'll need the Admin app enabled).
-
-
-5. 'python manage.py runserver' to run server 
-
-
-6. Visit https://documenter.getpostman.com/view/16706893/2s8YehVHSC to view API documentation.
-
-
-This will install all the dependencies listed in the `setup.py` file. Once done
-you can use the library wherever you want.
-
-7. Frontend:
-
-```console
-cd frontend
-npm install
-npm run dev
-```
-for production:
-```console
-npm run build
 ```
 
-## Usage
+3. Run ``python3 manage.py migrate`` to create the department and employees models.
 
-Here is a simple example of using the `TLGROUP` library to get data about an employee working in a department.
+
+4. Run ``python3 manage.py createsuperuser`` to create superuser.
+
+   <em>Optional: Run ``python manage.py test`` to run test.</em>
+
+
+5. Run ``python3 manage.py runserver`` to run server.
+   Start the development server and visit http://127.0.0.1:8000/admin/
+   to create, read, update or delete a department and employee (you'll need the Admin app enabled).
+
+6. To create a department structure, you can go in a simpler way:
+   Run `` python manage.py shell_plus``.
+
+```bazaar
+Python 3.10.6 (main, Nov  2 2022, 18:53:38) [GCC 11.3.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from base.utils import create_tl_base 
+>>> create_tl_base()
+```
+
+    function create_tl_base(department_depth_level: Integer, max_division: Integer, employee_count: Integer)
+    
+        - department_depth_level - how many levels of departments will be created (default=5)
+
+        - max_division - random divisions will be created in each department (default=random.randint(1, 3))
+
+        - employee_count - how many employees will be created in each department (default=2000)
+
+7. Visit [API DOCUMENTATION](https://documenter.getpostman.com/view/16706893/2s8YehVHSC) to view API documentation.
+
+---
+
+### Frontend:
+
+    - update frontend/.env file with your backend url
+      ``VITE_BASE_URL=http://127.0.0.1:8000/api/v1/``
+
+    - cd frontend
+    - npm install
+    - npm run serve
+    - visit http://localhost:5173
+
+   For production build:
+
+    - npm run build
+
+
 
 

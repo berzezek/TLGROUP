@@ -1,7 +1,7 @@
 from .models import Department, Employee
 
 
-def create_tl_base(department_depth_level=5, max_division=3, employee_count=201):
+def create_tl_base(department_depth_level=5, max_division=3, employee_count=2000):
     from random import randint
     from faker import Faker
     fake = Faker(['ru_RU'])
