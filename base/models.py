@@ -27,7 +27,6 @@ class Employee(AbstractEmployee):
     job = models.CharField(max_length=200, verbose_name='Должность')
     salary = models.IntegerField(verbose_name='Зарплата')
     date_of_issue = models.DateField(verbose_name='Дата принятия на работу')
-    department = models.ForeignKey(Department, on_delete=models.CASCADE, verbose_name='Отдел')
 
     class Meta:
         verbose_name = 'Сотрудника'
