@@ -15,8 +15,15 @@ class Department(models.Model):
         return self.name
 
 
-class Employee(models.Model):
+class AbstractEmployee(models.Model):
     name = models.CharField(max_length=50, verbose_name='ФИО')
+    department = models.ForeignKey(Department, on_delete=models.CASCADE, verbose_name='Отдел')
+
+    class Meta:
+        abstract = True
+
+
+class Employee(AbstractEmployee):
     job = models.CharField(max_length=200, verbose_name='Должность')
     salary = models.IntegerField(verbose_name='Зарплата')
     date_of_issue = models.DateField(verbose_name='Дата принятия на работу')
